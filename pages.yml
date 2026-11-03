@@ -1,0 +1,18 @@
+# pages.yml
+- id: "2310151430"
+  title: "Paris Heritage Tour"
+  continent: "Europe"
+  country: "France"
+  city: "Paris"
+  date: "2023-10-15"
+  image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
+  description: "Exploring historic sites and natural wonders with the family."
+
+- id: "2405201100"
+  title: "Cape Town Safari Retreat"
+  continent: "Africa"
+  country: "South Africa"
+  city: "Cape Town"
+  date: "2024-05-20"
+  image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99"
+  description: "Halal-friendly safari retreat and coastal photography."

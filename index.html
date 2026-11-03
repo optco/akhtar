@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhtar Travels</title>
+    <meta name="description" content="Travel journal and photography portfolio of Muhammad Tanvir Akhtar.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="theme-toggle">
+    <button class="control-btn" onclick="changeTheme()" title="Change Theme">
+        <i class="fas fa-palette" aria-hidden="true"></i>
+    </button>
+</div>
+
+<div class="main-layout">
+    <aside class="sidebar glass">
+        <div class="sidebar-header">
+            <h2>Akhtar Travels</h2>
+            <p class="hero-subtitle">Documenting journeys, heritage sites, and natural wonders.</p>
+        </div>
+        <div id="sidebar-content"></div>
+    </aside>
+
+    <main class="content-area">
+        <div id="cards-grid" class="cards-grid"></div>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="social-links">
+        <a href="https://instagram.com/itesteye" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+    </div>
+    <p class="footer-text">© 2026 Akhtar.co.za</p>
+</footer>
+
+<script src="site.js"></script>
+<script>
+// Retain your existing theme logic
+const gradients = [
+    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+];
+function changeTheme() {
+    let idx = parseInt(localStorage.getItem('themeIndex') || '0');
+    idx = (idx + 1) % gradients.length;
+    localStorage.setItem('themeIndex', idx);
+    document.documentElement.style.setProperty('--dynamic-gradient', gradients[idx]);
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('themeIndex') || '0';
+    document.documentElement.style.setProperty('--dynamic-gradient', gradients[parseInt(savedTheme)]);
+});
+</script>
+</body>
+</html>
