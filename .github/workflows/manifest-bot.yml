@@ -1,0 +1,41 @@
+name: Manifest Bot
+on:
+  push:
+    paths:
+      - 'pages.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install yaml and fs
+        run: npm install js-yaml
+      - name: Generate Manifest and Pages
+        run: |
+          node -e "
+          const fs = require('fs');
+          const yaml = require('js-yaml');
+          const pages = yaml.load(fs.readFileSync('pages.yml', 'utf8'));
+          fs.writeFileSync('manifest.json', JSON.stringify(pages, null, 2));
+          
+          const template = fs.readFileSync('template.html', 'utf8');
+          pages.forEach(page => {
+            const html = template
+              .replace(/{{TITLE}}/g, page.title)
+              .replace(/{{CONTENT}}/g, '<p>' + page.description + '</p>')
+              .replace(/{{IMAGE}}/g, page.image);
+            fs.writeFileSync(page.id + '.html', html);
+          });
+          "
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add manifest.json *.html
+          git commit -m "Auto-generate manifest and pages" || exit 0
+          git push
